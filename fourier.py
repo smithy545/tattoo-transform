@@ -25,8 +25,19 @@ class Fourier:
                 wave.append(a*np.cos(self.freqs[i]*t))
             self.waves.append(wave)
 
-        self.draw()
+        self.recreate()
         plt.show()
+
+    def recreate(self):
+        N = len(self.amps)
+        ys = []
+        for n, x in enumerate(self.xs):
+            y = 0
+            for k, a in enumerate(self.amps):
+                y += a*np.exp((1j)*2*np.pi*k*n/N)
+            ys.append(y/N)
+
+        plt.plot(ys, 'bo')
 
     def graph(self):
         ax = plt.gca()
