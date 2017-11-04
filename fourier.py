@@ -37,7 +37,13 @@ class Fourier:
                 y += a*np.exp((1j)*2*np.pi*k*n/N)
             ys.append(y/N)
 
-        plt.plot(ys, 'bo')
+        fig, (ax1, ax2) = plt.subplots(2, sharex=True)
+
+        self.drawTattoo(ax2)
+        ylim = ax2.get_ylim()
+        ax1.set_ylim(ylim[0], ylim[1])
+        ax1.set_title("Recreated signal")
+        ax1.plot(self.xs, ys, 'bo')
 
     def graph(self):
         ax = plt.gca()
@@ -80,7 +86,7 @@ class Fourier:
     def drawTattoo(self, ax=None):
         if ax == None:
             ax = plt.gca()
-        ax.set_title("Tatoo")
+        ax.set_title("Tattoo")
         ax.imshow(img, cmap="gray")
         ax.scatter(self.xs, self.ys)
         ylim = ax.get_ylim()
