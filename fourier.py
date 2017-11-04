@@ -31,17 +31,18 @@ class Fourier:
     def recreate(self):
         N = len(self.amps)
         ys = []
-        for n, x in enumerate(self.xs):
+
+        for i, t in enumerate(self.points):
             y = 0
-            for k, a in enumerate(self.amps):
-                y += a*np.exp((1j)*2*np.pi*k*n/N)
-            ys.append(y/N)
+            for w in self.waves:
+                y += t[1]*np.real(w[i])
+            ys.append(y)
 
         fig, (ax1, ax2) = plt.subplots(2, sharex=True)
 
         self.drawTattoo(ax2)
-        ylim = ax2.get_ylim()
-        ax1.set_ylim(ylim[0], ylim[1])
+        xlim = ax2.get_xlim()
+        ax1.set_xlim(xlim[0], xlim[1])
         ax1.set_title("Recreated signal")
         ax1.plot(self.xs, ys, 'bo')
 
